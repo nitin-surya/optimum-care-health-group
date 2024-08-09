@@ -4,8 +4,8 @@ import logo from "./logo.png";
 const Header = () => {
   return (
     <header className="header">
-      <img src={logo} alt="Optimum Care Health Partner" className="logo" />
-      <h1>Optimum Care Health Partner</h1>
+      <img src={logo} alt="Optimum Care Partners" className="logo" />
+      <h1>Optimum Care Partners</h1>
     </header>
   );
 };
