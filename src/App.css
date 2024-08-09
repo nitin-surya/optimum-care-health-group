@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e9ecef; /* Slightly lighter background for contrast */
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
+  background-color: #002d72; /* Darker blue for a more modern look */
+  color: white;
+  padding: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
-.App-link {
-  color: #61dafb;
+.logo {
+  width: 12%; /* Slightly larger logo */
+  margin-right: 15px; /* Reduced margin for tighter alignment */
+  background: white;
+  border-radius: 4px; /* Rounded corners for logo */
 }
 
-@keyframes App-logo-spin {
+h1 {
+  font-size: 26px; /* Increased font size for better readability */
+  margin: 0;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
+  gap: 20px;
+  padding: 20px 40px; /* Added horizontal padding for space between edges and charts */
+  animation: fadeIn 2s ease-in-out;
+  max-width: 1200px; /* Max width for the dashboard */
+  margin: 0 auto; /* Center the dashboard */
+}
+
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
+}
+
+.metric-card {
+  text-align: center;
+  padding: 15px;
+  background: white; /* White background for the card */
+  border: 1px solid #dee2e6; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  margin: 10px; /* Margin around the card */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.metric-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.metric-card p {
+  margin: 0;
+  font-size: 16px; /* Slightly larger font size */
+  color: #495057; /* Darker text color for better readability */
+}
+
+.p-button-text {
+  color: #007bff; /* Primary button color */
+  font-weight: bold;
+}
+
+.p-button-text:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr; /* Single column for smaller screens */
+    grid-template-rows: repeat(auto-fit, minmax(300px, 1fr)); /* Auto fit rows */
+    padding: 20px; /* Reduce padding on smaller screens */
+  }
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center; /* Center charts horizontally */
+  align-items: center; /* Center charts vertically */
+  height: 250px; /* Consistent height for the chart container */
+  width: 100%;
 }
