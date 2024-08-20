@@ -13,12 +13,14 @@ const Dashboard = () => {
   const metrics = [
     {
       name: "Patient Experience",
-      description:
-        "Satisfaction level of patients with the healthcare services.",
-      nationalAvg: 75,
-      stateAvg: 80,
-      doctorAvg: 85,
+      description: `The national average HCAHPS score across nearly 3,300 U.S. hospitals tracked in HospitalView is 3.33.
+         The Oklahoma state average is 3.76`,
+      nationalAvg: 3.33,
+      stateAvg: 3.76,
+      doctorAvg: 3.5,
       type: "bar",
+      link: "https://www.definitivehc.com/resources/healthcare-insights/hcahps-scores-state#:~:text=What%20is%20the%20average%20HCAHPS,tracked%20in%20HospitalView%20is%203.33.",
+      linkDesc: "HCAHPS scores",
     },
     {
       name: "Quality",
@@ -83,6 +85,11 @@ const Dashboard = () => {
           <div>
             <h2>{selectedMetric.name}</h2>
             <p>{selectedMetric.description}</p>
+            {selectedMetric.link && (
+              <a href={selectedMetric.link} target="_blank" rel="noreferrer">
+                {selectedMetric.linkDesc}
+              </a>
+            )}
           </div>
         )}
       </Dialog>
