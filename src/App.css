@@ -16,10 +16,10 @@ body {
 }
 
 .logo {
-  width: 12%; /* Slightly larger logo */
+  width: 5%; /* Slightly larger logo */
   margin-right: 15px; /* Reduced margin for tighter alignment */
   background: white;
-  border-radius: 4px; /* Rounded corners for logo */
+  border-radius: 55px; /* Rounded corners for logo */
 }
 
 h1 {
@@ -28,13 +28,16 @@ h1 {
 }
 
 .dashboard {
-  display: grid;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap ;
   grid-template-columns: repeat(2, 1fr); /* 2 columns */
   grid-template-rows: repeat(2, auto); /* 2 rows */
   gap: 20px;
-  padding: 20px 40px; /* Added horizontal padding for space between edges and charts */
+  padding: 40px; /* Added horizontal padding for space between edges and charts */
   animation: fadeIn 2s ease-in-out;
-  max-width: 1200px; /* Max width for the dashboard */
+  /* max-width: 1200px; Max width for the dashboard */
   margin: 0 auto; /* Center the dashboard */
 }
 
@@ -93,3 +96,4 @@ h1 {
   height: 250px; /* Consistent height for the chart container */
   width: 100%;
 }
+
