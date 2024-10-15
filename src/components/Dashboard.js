@@ -4,49 +4,69 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Chart } from "primereact/chart";
+import { DashboardData, MoreInfo } from "./DashboardData"; // Import DashboardData
 
 const Dashboard = () => {
   const [selectedMetric, setSelectedMetric] = useState(null);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
   const [showChartDialog, setShowChartDialog] = useState(false);
 
+  // Calculate averages from DashboardData
+  const calculateMetrics = (category) => {
+    const filteredData = DashboardData.filter(
+      (metric) => metric.category === category
+    );
+
+    const nationalAvg =
+      filteredData.reduce((sum, metric) => sum + metric.nationalAvg, 0) /
+      filteredData.length;
+    const stateAvg =
+      filteredData.reduce((sum, metric) => sum + metric.stateAvg, 0) /
+      filteredData.length;
+    const q1Avg =
+      filteredData.reduce((sum, metric) => sum + metric.q1Avg, 0) /
+      filteredData.length;
+    const q2Avg =
+      filteredData.reduce((sum, metric) => sum + metric.q2Avg, 0) /
+      filteredData.length;
+    const q3Avg =
+      filteredData.reduce((sum, metric) => sum + metric.q3Avg, 0) /
+      filteredData.length;
+
+    return { nationalAvg, stateAvg, q1Avg, q2Avg, q3Avg };
+  };
+
   const metrics = [
     {
       name: "Patient Experience",
-      description: `The national average HCAHPS score across nearly 3,300 U.S. hospitals tracked in HospitalView is 3.33.
-         The Oklahoma state average is 3.76`,
-      nationalAvg: 3.33,
-      stateAvg: 3.76,
-      doctorAvg: 3.5,
+      description:
+        "The Patient Experience metrics are calculated using national and state averages from patient surveys, along with quarterly averages that reflect patient feedback trends.",
+      ...calculateMetrics("Patient Experience"),
       type: "bar",
-      link: "https://www.definitivehc.com/resources/healthcare-insights/hcahps-scores-state#:~:text=What%20is%20the%20average%20HCAHPS,tracked%20in%20HospitalView%20is%203.33.",
-      linkDesc: "HCAHPS scores",
+      additionalInfo: MoreInfo.patientExperience,
     },
     {
       name: "Quality",
       description:
         "Overall quality rating of the healthcare services provided.",
-      nationalAvg: 78,
-      stateAvg: 82,
-      doctorAvg: 88,
-      type: "pie",
+      ...calculateMetrics("Quality"),
+      type: "bar",
+      additionalInfo: MoreInfo.quality,
     },
     {
       name: "Return to Acute",
       description:
         "Rate at which patients return to acute care within 30 days.",
-      nationalAvg: 10,
-      stateAvg: 9,
-      doctorAvg: 7,
-      type: "doughnut",
+      ...calculateMetrics("Return To Acute"),
+      type: "bar",
+      additionalInfo: MoreInfo.returnToAcute,
     },
     {
       name: "Length of Stay",
       description: "Average length of stay for patients in the hospital.",
-      nationalAvg: 5.5,
-      stateAvg: 5.0,
-      doctorAvg: 4.5,
+      ...calculateMetrics("Length of Stay"),
       type: "bar",
+      additionalInfo: MoreInfo.lengthOfStay,
     },
   ];
 
@@ -85,11 +105,13 @@ const Dashboard = () => {
           <div>
             <h2>{selectedMetric.name}</h2>
             <p>{selectedMetric.description}</p>
-            {selectedMetric.link && (
-              <a href={selectedMetric.link} target="_blank" rel="noreferrer">
-                {selectedMetric.linkDesc}
-              </a>
-            )}
+            <h3>Metrics:</h3>
+            <ul>
+              {selectedMetric.additionalInfo &&
+                selectedMetric.additionalInfo.map((info, index) => (
+                  <li key={index}>{info}</li>
+                ))}
+            </ul>
           </div>
         )}
       </Dialog>
@@ -107,16 +129,24 @@ const Dashboard = () => {
             <Chart
               type={selectedMetric.type}
               data={{
-                labels: ["National Avg", "State Avg", "Doctor Avg"],
+                labels: ["National Avg", "State Avg", "Q1", "Q2", "Q3"],
                 datasets: [
                   {
                     label: selectedMetric.name,
                     data: [
                       selectedMetric.nationalAvg,
                       selectedMetric.stateAvg,
-                      selectedMetric.doctorAvg,
+                      selectedMetric.q1Avg,
+                      selectedMetric.q2Avg,
+                      selectedMetric.q3Avg,
                     ],
-                    backgroundColor: ["#42A5F5", "#66BB6A", "#FFA726"],
+                    backgroundColor: [
+                      "#42A5F5",
+                      "#66BB6A",
+                      "#FFA726",
+                      "#FFCA28",
+                      "#AB47BC",
+                    ],
                   },
                 ],
               }}

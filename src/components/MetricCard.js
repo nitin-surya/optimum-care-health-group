@@ -3,12 +3,24 @@ import { Chart } from "primereact/chart";
 
 const MetricCard = ({ metric, onChartClick }) => {
   const data = {
-    labels: ["National Avg", "State Avg", "Doctor Avg"],
+    labels: ["National Avg", "State Avg", "Q1", "Q2", "Q3"],
     datasets: [
       {
         label: metric.name,
-        data: [metric.nationalAvg, metric.stateAvg, metric.doctorAvg],
-        backgroundColor: ["#42A5F5", "#66BB6A", "#FFA726"],
+        data: [
+          metric.nationalAvg,
+          metric.stateAvg,
+          metric.q1Avg,
+          metric.q2Avg,
+          metric.q3Avg,
+        ],
+        backgroundColor: [
+          "#42A5F5",
+          "#66BB6A",
+          "#FFA726",
+          "#FFCA28",
+          "#AB47BC",
+        ],
       },
     ],
   };
@@ -29,7 +41,6 @@ const MetricCard = ({ metric, onChartClick }) => {
 
   return (
     <div className="metric-card">
-      {/* <p>{metric.description}</p> */}
       <div className="chart-container" onClick={() => onChartClick(metric)}>
         <Chart
           type={metric.type}
